@@ -60,7 +60,7 @@ const followersArray = [];
 */
 
 // Selecting spot for component injection
-const cardHoldingSpot = document.querySelector("div.class");
+const cardHoldingSpot = document.querySelector("div.cards");
 
 // GitHubCard Component
 function makeGitHubCard(accountObj) {
@@ -93,10 +93,17 @@ function makeGitHubCard(accountObj) {
   cardRealName.classList.add("name");
   cardUsername.classList.add("username");
   // Adding content to elements
-
-  cardImage.setAttribute("src", accountObj["avatar_url"]);
+  cardImage.src = accountObj["avatar_url"];
+  cardRealName.textContent = `${accountObj["name"]}`;
+  cardUsername.textContent = `${accountObj["login"]}`;
+  cardLocation.textContent = `${accountObj["location"]}`;
+  cardProfile.textContent = "Profile:";
+  cardAddress.href = accountObj["html_url"];
+  cardAddress.textContent = `${accountObj["html_url"]}`;
+  cardFollowers.textContent = `${accountObj["followers"]}`;
+  cardFollowing.textContent = `${accountObj["following"]}`;
   // Returning container
   return cardContainer;
 }
 
-axios.get(`https://api.github.com/users/DoctorWayWay`).then();
+// axios.get(`https://api.github.com/users/DoctorWayWay`).then();
