@@ -28,7 +28,13 @@ import axios from "axios";
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const friendsArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -123,8 +129,10 @@ function getGitHubUserInfo(username) {
     });
 }
 
+// Putting myself onto the page
 getGitHubUserInfo("DoctorWayWay");
 
-// console.log(test);
-
-// cardHoldingSpot.appendChild(makeGitHubCard(test));
+// Putting the provided instructors onto the page
+friendsArray.forEach((user) => {
+  getGitHubUserInfo(user);
+});
