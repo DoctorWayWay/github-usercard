@@ -3,7 +3,7 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+import axios from "axios";
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -58,3 +58,36 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+// Selecting spot for component injection
+const cardHoldingSpot = document.querySelector("div.class");
+
+// GitHubCard Component
+function makeGitHubCard(accountObj) {
+  // Adding elements
+  const cardContainer = document.createElement("div");
+  const cardImage = document.createElement("img");
+  const cardInfoContainer = document.createElement("div");
+  const cardRealName = document.createElement("h3");
+  const cardUsername = document.createElement("p");
+  const cardLocation = document.createElement("p");
+  const cardProfile = document.createElement("p");
+  const cardAddress = document.createElement("a");
+  const cardFollowers = document.createElement("p");
+  const cardFollowing = document.createElement("p");
+  const cardBio = document.createElement("p");
+  // Nesting elements
+  cardContainer.appendChild(cardImage);
+  cardContainer.appendChild(cardInfoContainer);
+  cardInfoContainer.appendChild(cardRealName);
+  cardInfoContainer.appendChild(cardUsername);
+  cardInfoContainer.appendChild(cardLocation);
+  cardInfoContainer.appendChild(cardProfile);
+  cardProfile.appendChild(cardAddress);
+  cardInfoContainer.appendChild(cardFollowers);
+  cardInfoContainer.appendChild(cardFollowing);
+  cardInfoContainer.appendChild(cardBio);
+  //
+}
+
+axios.get(`https://api.github.com/users/DoctorWayWay`).then();
