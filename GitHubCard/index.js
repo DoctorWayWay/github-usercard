@@ -93,12 +93,12 @@ function makeGitHubCard(accountObj) {
   cardRealName.classList.add("name");
   cardUsername.classList.add("username");
   // Adding content to elements
-  cardImage.src = accountObj["avatar_url"];
+  cardImage.setAttribute("src", accountObj["avatar_url"]);
   cardRealName.textContent = `${accountObj["name"]}`;
   cardUsername.textContent = `${accountObj["login"]}`;
   cardLocation.textContent = `${accountObj["location"]}`;
   cardProfile.textContent = "Profile:";
-  cardAddress.href = accountObj["html_url"];
+  cardAddress.setAttribute("href", accountObj["html_url"]);
   cardAddress.textContent = `${accountObj["html_url"]}`;
   cardFollowers.textContent = `${accountObj["followers"]}`;
   cardFollowing.textContent = `${accountObj["following"]}`;
@@ -106,4 +106,25 @@ function makeGitHubCard(accountObj) {
   return cardContainer;
 }
 
-// axios.get(`https://api.github.com/users/DoctorWayWay`).then();
+// Getting GitHub Handles
+function getGitHubUserInfo(username) {
+  axios
+    .get(`https://api.github.com/users/${username}`)
+    .then((response) => {
+      const userData = response.data;
+      // console.log(userData);
+      cardHoldingSpot.appendChild(makeGitHubCard(userData));
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      console.log("RESPONSE HAS ARRIVED!");
+    });
+}
+
+getGitHubUserInfo("DoctorWayWay");
+
+// console.log(test);
+
+// cardHoldingSpot.appendChild(makeGitHubCard(test));
