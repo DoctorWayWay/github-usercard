@@ -87,7 +87,16 @@ function makeGitHubCard(accountObj) {
   cardInfoContainer.appendChild(cardFollowers);
   cardInfoContainer.appendChild(cardFollowing);
   cardInfoContainer.appendChild(cardBio);
-  //
+  // Adding classes to the elements
+  cardContainer.classList.add("card");
+  cardInfoContainer.classList.add("card-info");
+  cardRealName.classList.add("name");
+  cardUsername.classList.add("username");
+  // Adding content to elements
+
+  cardImage.setAttribute("src", accountObj["avatar_url"]);
+  // Returning container
+  return cardContainer;
 }
 
 axios.get(`https://api.github.com/users/DoctorWayWay`).then();
