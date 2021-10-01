@@ -69,7 +69,7 @@ const friendsArray = [
 const cardHoldingSpot = document.querySelector("div.cards");
 
 // GitHubCard Component
-function makeGitHubCard(accountObj) {
+function GitHubCard(accountObj) {
   // Adding elements
   const cardContainer = document.createElement("div");
   const cardImage = document.createElement("img");
@@ -102,15 +102,38 @@ function makeGitHubCard(accountObj) {
   cardImage.setAttribute("src", accountObj["avatar_url"]);
   cardRealName.textContent = `${accountObj["name"]}`;
   cardUsername.textContent = `${accountObj["login"]}`;
-  cardLocation.textContent = `${accountObj["location"]}`;
+  cardLocation.textContent = `Location: ${accountObj["location"]}`;
   cardProfile.textContent = "Profile:";
   cardAddress.setAttribute("href", accountObj["html_url"]);
   cardAddress.textContent = `${accountObj["html_url"]}`;
-  cardFollowers.textContent = `${accountObj["followers"]}`;
-  cardFollowing.textContent = `${accountObj["following"]}`;
+  cardFollowers.textContent = `Followers: ${accountObj["followers"]}`;
+  cardFollowing.textContent = `Following: ${accountObj["following"]}`;
+  cardBio.textContent = `Bio: ${accountObj["bio"]}`;
   // Returning container
   return cardContainer;
 }
+
+// const GithubCard = (props) => {
+//   const { userData } = props;
+
+//   const element = document.createElement("div");
+//   element.className = "card";
+
+//   element.innerHTML = `
+//     <img src=${userData.avatar_url} />
+//     <div class="info-container">
+//     <h3 class="name">${userData.name}</h3>
+//     <p class="username">${userData.login}</p>
+//       <p>${userData.location}</p>
+//       <p>Profile:</p>
+//       <a href=${userData.html_url}>${userData.html_url}</a>
+//       <p>Followers: ${userData.followers}</p>
+//       <p>Following: ${userData.following}</p>
+//     </div>
+//   `;
+
+//   return element;
+// };
 
 // Getting GitHub Handles
 function getGitHubUserInfo(username) {
@@ -119,7 +142,7 @@ function getGitHubUserInfo(username) {
     .then((response) => {
       const userData = response.data;
       // console.log(userData);
-      cardHoldingSpot.appendChild(makeGitHubCard(userData));
+      cardHoldingSpot.appendChild(GitHubCard(userData));
     })
     .catch((err) => {
       console.log(err);
