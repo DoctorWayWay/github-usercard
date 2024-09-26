@@ -3,7 +3,7 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+import axios from "axios";
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +28,13 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const friendsArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -58,3 +64,98 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+// Selecting spot for component injection
+const cardHoldingSpot = document.querySelector("div.cards");
+
+// GitHubCard Component
+function GitHubCard(accountObj) {
+  // Adding elements
+  const cardContainer = document.createElement("div");
+  const cardImage = document.createElement("img");
+  const cardInfoContainer = document.createElement("div");
+  const cardRealName = document.createElement("h3");
+  const cardUsername = document.createElement("p");
+  const cardLocation = document.createElement("p");
+  const cardProfile = document.createElement("p");
+  const cardAddress = document.createElement("a");
+  const cardFollowers = document.createElement("p");
+  const cardFollowing = document.createElement("p");
+  const cardBio = document.createElement("p");
+  // Nesting elements
+  cardContainer.appendChild(cardImage);
+  cardContainer.appendChild(cardInfoContainer);
+  cardInfoContainer.appendChild(cardRealName);
+  cardInfoContainer.appendChild(cardUsername);
+  cardInfoContainer.appendChild(cardLocation);
+  cardInfoContainer.appendChild(cardProfile);
+  cardProfile.appendChild(cardAddress);
+  cardInfoContainer.appendChild(cardFollowers);
+  cardInfoContainer.appendChild(cardFollowing);
+  cardInfoContainer.appendChild(cardBio);
+  // Adding classes to the elements
+  cardContainer.classList.add("card");
+  cardInfoContainer.classList.add("card-info");
+  cardRealName.classList.add("name");
+  cardUsername.classList.add("username");
+  // Adding content to elements
+  cardImage.setAttribute("src", accountObj["avatar_url"]);
+  cardRealName.textContent = `${accountObj["name"]}`;
+  cardUsername.textContent = `${accountObj["login"]}`;
+  cardLocation.textContent = `Location: ${accountObj["location"]}`;
+  cardProfile.textContent = "Profile:";
+  cardAddress.setAttribute("href", accountObj["html_url"]);
+  cardAddress.textContent = `${accountObj["html_url"]}`;
+  cardFollowers.textContent = `Followers: ${accountObj["followers"]}`;
+  cardFollowing.textContent = `Following: ${accountObj["following"]}`;
+  cardBio.textContent = `Bio: ${accountObj["bio"]}`;
+  // Returning container
+  return cardContainer;
+}
+
+// const GithubCard = (props) => {
+//   const { userData } = props;
+
+//   const element = document.createElement("div");
+//   element.className = "card";
+
+//   element.innerHTML = `
+//     <img src=${userData.avatar_url} />
+//     <div class="info-container">
+//     <h3 class="name">${userData.name}</h3>
+//     <p class="username">${userData.login}</p>
+//       <p>${userData.location}</p>
+//       <p>Profile:</p>
+//       <a href=${userData.html_url}>${userData.html_url}</a>
+//       <p>Followers: ${userData.followers}</p>
+//       <p>Following: ${userData.following}</p>
+//     </div>
+//   `;
+
+//   return element;
+// };
+
+// Getting GitHub Handles
+function getGitHubUserInfo(username) {
+  axios
+    .get(`https://api.github.com/users/${username}`)
+    .then((response) => {
+      const userData = response.data;
+      // console.log(userData);
+      cardHoldingSpot.appendChild(GitHubCard(userData));
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      console.log("RESPONSE HAS ARRIVED!");
+    });
+}
+
+// Putting myself onto the page
+getGitHubUserInfo("DoctorWayWay");
+
+// Putting the provided instructors onto the page
+friendsArray.forEach((user) => {
+  getGitHubUserInfo(user);
+});
